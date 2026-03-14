@@ -54,9 +54,13 @@ const db = mysql.createPool({
   }
 });
 
-db.connect((err) => {
-    if (err) { console.error('Error bd:', err); return; }
+db.getConnection((err, connection) => {
+    if (err) { 
+        console.error('Error bd:', err); 
+        return; 
+    }
     console.log('✅ ¡Conectado a la BD Foodtropolis!');
+    connection.release(); // Soltamos la conexión de prueba para no ocupar espacio
 });
 
 // ==========================================
